@@ -1,28 +1,43 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:myapp/src/detail.dart';
+import 'package:myapp/src/products.dart';
 import 'package:myapp/src/update.dart';
 import 'package:myapp/src/search.dart';
+import 'package:provider/provider.dart';
 // import 'package:google_fonts/google_fonts.dart';
 class App extends StatelessWidget {
+  
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( // Ensuring the app is wrapped in a MaterialApp
-      home: HomeScreen(), // Setting the HomeScreen as the home widget
+
+     List<Item> shoes = ItemProvider.retrive();
+    List<Widget> dispCards = shoes.map((shoe){
+      return Mycard(shoes:shoe);
+    }).toList();
+      
+
+    return MaterialApp( 
+      home: HomeScreen(),
     );
   }
 }
 
 class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
-    return MaterialApp( 
-      home: Scaffold(
+
+    List<Item> shoes = ItemProvider.retrive();
+    List<Widget> dispCards = shoes.map((shoe){
+      return Mycard(shoes:shoe);
+    }).toList();
+      
+      return Scaffold(
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Navigator.push(
-  context,
-  MaterialPageRoute(builder: (context) => Detail()),
-);
+            Navigator.pushNamed(context, '/detail');
           },
           child: Icon(Icons.add),
           shape: CircleBorder(),
@@ -69,6 +84,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         body: Padding(
+          
           padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
           child: Column(
             children: <Widget>[
@@ -83,10 +99,8 @@ class HomeScreen extends StatelessWidget {
                       )),
                   IconButton(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Search ()),
-                        );
+                      Navigator.pushNamed(context, '/search');
+                        
                     },
                     icon: const Icon(Icons.search),
                     color: Colors.grey,
@@ -94,55 +108,33 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(children: [
-                    Mycard(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Mycard(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Mycard(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Mycard(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Mycard(),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Mycard(),
-                  ]),
-                ),
-              )
+                child:ListView(
+                  children: dispCards,
+                )
+              ),
             ],
           ),
         ),
-      ),
-    );
+      );
+    
   }
 }
 
 class Mycard extends StatelessWidget {
-  const Mycard({super.key});
+  Item shoes ;
+   Mycard({super.key,required this.shoes});
 
   @override
   Widget build(BuildContext context) {
+   
     return Card(
+
       child: Padding(
         padding: EdgeInsets.only(left: 10,right: 10),
         child: GestureDetector(
         
           onTap: (){
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => Update()),
-            );
+            Navigator.pushNamed(context, '/update');
           },
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,24 +143,25 @@ class Mycard extends StatelessWidget {
               ClipRRect(
                 
                 borderRadius: BorderRadius.circular(15),
-                child: const Image(
-                  width:double.infinity,
-                  image: AssetImage('assets/boot.jpg'),
+                child:  Image.file(
+            
+                  
+                shoes.imgpath!,
                   fit:BoxFit.fill,
                   alignment: Alignment.centerLeft,
                 ),
               ),
-              const SizedBox(height: 20),
-              const Row(
+               SizedBox(height: 20),
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left:10),
-                    child: const Text('summer shoes', style: TextStyle(color:const Color.fromRGBO(62, 62, 62, 1),fontSize: 22))),
+                    child:  Text(shoes.name!, style: TextStyle(color:const Color.fromRGBO(62, 62, 62, 1),fontSize: 22))),
                   Padding(
                     padding:EdgeInsets.only(right: 10),
                     child: Text(
-                      '\$120',
+                      shoes.price!,
                       style: TextStyle(color:const Color.fromRGBO(62, 62, 62, 1),fontSize: 22)
                     ),
                   ),
@@ -177,12 +170,12 @@ class Mycard extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Row(
+               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left:10),
-                    child: const Text('best shoes ',style: TextStyle(fontSize: 15,color:const Color.fromRGBO(170, 170, 170, 1)),)
+                    child:  Text(shoes.category!,style: TextStyle(fontSize: 15,color:const Color.fromRGBO(170, 170, 170, 1)),)
                     ),
                   Row(
                     children: <Widget>[

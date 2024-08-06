@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'app.dart';
 
-class Update extends StatelessWidget{
-   
+class up extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+       return Update();
+    
+  }
+}
+
+class Update extends State<up>{
+   var flag = false;
+   var selected = -1;
   Widget build (BuildContext context){
     double screenHeight = MediaQuery.of(context).size.height;
     double screenWidth = MediaQuery.of(context).size.width;
    
   
-    return MaterialApp(
-      home:Scaffold(
+    return Scaffold(
         extendBody: true,
         body: SingleChildScrollView(
           child: Container(
@@ -28,11 +36,13 @@ class Update extends StatelessWidget{
                   ),
                   ),
                   Positioned(
-                    top: 10,
+                    top: 15,
                     left:10,
                     child:Container(
                       padding:EdgeInsets.only(left:10,top:8),
                       child: Container(
+                        width: 40,
+                        height: 40,
                           constraints: BoxConstraints(minHeight: 2),
                          decoration: BoxDecoration(
                             color: Colors.white, 
@@ -104,106 +114,33 @@ class Update extends StatelessWidget{
                 
                 Container(
                   height:50,
-                  width: 50,
                   
-                   
-                  child: ListView(
+                  child:ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    children: [
-                      ElevatedButton(onPressed: (){}, 
-                  child: Text('37'),
-                  style: ElevatedButton.styleFrom(
-                    padding:EdgeInsetsDirectional.all(3),
-                    foregroundColor: Colors.black,
-                    backgroundColor: Color.fromRGBO(255, 255, 255, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
-                  ),
-                  ),
-                  SizedBox(width: 8,),
-                  ElevatedButton(onPressed: (){}, 
-                  child: Text('38'),
-                  style: ElevatedButton.styleFrom(
-                    padding:EdgeInsetsDirectional.all(3),
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
-                  ),
-                  ),
-                  SizedBox(width: 8,),
-                  ElevatedButton(onPressed: (){
+                    itemCount:8 ,
+                    itemBuilder: (context,index){
+                      final size = 37+index;
+                      return Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 8),
+                        child:ElevatedButton(onPressed: (){
+                          setState(() {
+                            flag = !flag;
+                            selected = index;
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                          backgroundColor: selected==index? Color.fromRGBO(63, 81, 243, 1) : Colors.white,
 
-                  }, 
-                  child: Text('39'),
-                  style: ElevatedButton.styleFrom(
-                    padding:EdgeInsetsDirectional.all(3),
-                    foregroundColor: Colors.white,
-                    backgroundColor: Color.fromRGBO(63, 81, 243, 1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
-                  ),
-                  ),
-                  SizedBox(width: 8,),
-                   ElevatedButton(onPressed: (){
-                    
-                     
-                    
-                   }, 
-                  child: Text('40'),
-                  style: ElevatedButton.styleFrom(
-                    padding:EdgeInsetsDirectional.all(3),
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
-                  ),
-                  ),
-                  SizedBox(width: 8,),
-                   ElevatedButton(onPressed: (){}, 
-                  child: Text('41'),
-                  style: ElevatedButton.styleFrom(
-                    padding:EdgeInsetsDirectional.all(3),
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
-                  ),
-                  ),
-                  SizedBox(width: 8,),
-                   ElevatedButton(onPressed: (){}, 
-                  child: Text('42'),
-                  style: ElevatedButton.styleFrom(
-                    padding:EdgeInsetsDirectional.all(3),
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
-                  ),
-                  ),
-                  SizedBox(width: 8,),
-                   ElevatedButton(onPressed: (){}, 
-                  child: Text('43'),
-                  style: ElevatedButton.styleFrom(
-                    padding:EdgeInsetsDirectional.all(3),
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)
-                    )
-                  ),
-                  ),
-                    ]
-                    
+                          foregroundColor: selected==index? Colors.white :Colors.black,
+                        ),
+                        child:Text('$size'),
+                        ),
+                      );
+                    },
+                  )
+                   
                   
-                  ),
                 ),
                 Container(
                   padding: EdgeInsets.only(left:15,right:15,top: 20),
@@ -275,8 +212,8 @@ class Update extends StatelessWidget{
             ),
           ),
         ),
-      )
       );
+    
       
     
   }
