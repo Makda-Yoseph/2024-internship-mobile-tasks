@@ -17,7 +17,7 @@ void main(){
     mockproductrepo = MockproductRepo();
     getProduct = GetProduct(mockproductrepo);
   });
-final item = product(name: 'kids shoe', category: 'kids', price: 200, description: 'cool for kids', id: '3');
+final item = product(name: 'kids shoe', imageUrl: 'kids', price: 200, description: 'cool for kids', id: '3');
 final id = '3';
 test('get a single item by id'
 ,()async{

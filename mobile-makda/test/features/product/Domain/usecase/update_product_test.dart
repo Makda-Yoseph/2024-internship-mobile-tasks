@@ -22,7 +22,7 @@ void main(){
   updateprod = Updateprod(mockprodrep);
  });
 
-final item = product(name: 'kids shoes', category: 'kids', price: 200, description: 'for infants', id: '2');
+final item = product(name: 'kids shoes', imageUrl: 'kids', price: 200, description: 'for infants', id: '2');
 
 
 test('update the product instance'

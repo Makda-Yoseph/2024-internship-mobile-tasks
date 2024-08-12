@@ -17,7 +17,7 @@ void main(){
 
   product testproductmodel = ProductModel(
     name: 'kids',
-    category: 'kids',
+    imageUrl: 'kids',
     price: 200.0,
     description: 'for summer',
     id: '1',

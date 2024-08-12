@@ -21,7 +21,7 @@ void main(){
 
   final item = product(
     name: 'kids sneaker', 
-  category: 'kids',
+  imageUrl: 'kids',
    price: 200, 
    description: 'good for kids ', 
    id: '1',

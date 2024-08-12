@@ -21,14 +21,14 @@ void main(){
   });
 final item = product(
     name: 'kids sneaker', 
-  category: 'kids',
+  imageUrl: 'kids',
    price: 200, 
    description: 'good for kids ', 
    id: '1',
    );
 final item2 = product(
   name:'kids wear',
-  category: 'kids',
+  imageUrl: 'kids',
   price: 250,
   description: 'for summer wear',
   id: '2',
