@@ -9,6 +9,6 @@ class GetProduct{
   productRepo prodrep;
   GetProduct(this.prodrep);
   Future<Either<Failure,product >>execute(String id){
-    return prodrep.getitem(id);
+    return prodrep.getProduct(id);
   }
 }

@@ -10,7 +10,7 @@ class Updateprod{
   final productRepo prodrep;
   Updateprod(this.prodrep);
    Future<Either<Failure,product >>execute(product item){
-    return prodrep.updateProduct(item);
+    return prodrep.updateItem(item);
   }
 
 }

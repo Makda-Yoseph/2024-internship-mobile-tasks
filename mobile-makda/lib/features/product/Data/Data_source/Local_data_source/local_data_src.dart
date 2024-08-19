@@ -26,7 +26,7 @@ abstract class localprod extends Equatable{
 
 class LocalDataSrc implements localprod
 {
-
+ 
   @override
   List<Object?> get props => [];
 
@@ -42,7 +42,7 @@ class LocalDataSrc implements localprod
     if (jsonString != null) {
       
       Map<String, dynamic> jsonMap = jsonDecode(jsonString);
-      ProductModel product = ProductModel.formjson(jsonMap);
+      ProductModel product = ProductModel.formJson(jsonMap);
       return Right(product);
     } else {
       
@@ -81,7 +81,7 @@ class LocalDataSrc implements localprod
       for (String key in keys) {
         String? jsonString = prefs.getString(key);
         if (jsonString != null) {
-          products.add(ProductModel.formjson(jsonDecode(jsonString)));
+          products.add(ProductModel.formJson(jsonDecode(jsonString)));
         }
       }
 
@@ -122,7 +122,7 @@ class LocalDataSrc implements localprod
 
       if (productJson != null) {
        
-        ProductModel product = ProductModel.formjson(jsonDecode(productJson));
+        ProductModel product = ProductModel.formJson(jsonDecode(productJson));
 
         
         await prefs.remove(id);

@@ -10,7 +10,7 @@ class GetAllProd{
   final productRepo prodrep;
   GetAllProd(this.prodrep);
   Future<Either<Failure,List<product> >>execute( ){
-    return prodrep.getallItem();
+    return prodrep.getAllProducts();
   }
 
 }
