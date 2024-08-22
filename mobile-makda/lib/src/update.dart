@@ -4,6 +4,8 @@ import 'package:myapp/features/product/Domain/entities/product.dart';
 import 'package:myapp/features/product/presentation/blocks/Delete_blocks/delete_block.dart';
 import 'package:myapp/features/product/presentation/blocks/Delete_blocks/delete_event.dart';
 import 'package:myapp/features/product/presentation/blocks/Delete_blocks/delete_state.dart';
+import 'package:myapp/features/product/presentation/blocks/Home_blocks/home_block.dart';
+import 'package:myapp/features/product/presentation/blocks/Home_blocks/home_event.dart';
 import 'package:myapp/service_locator.dart';
 import 'app.dart';
 
@@ -49,7 +51,8 @@ class Update extends State<up>{
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text("Product deleted successfully.")),
             );
-            Navigator.pushNamed(context, '/');
+            context.read<HomeBloc>().add(ImageFetch());
+            Navigator.pushNamed(context, '/homescreen');
           } else if (state is DeleteFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.error)),

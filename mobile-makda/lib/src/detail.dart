@@ -406,7 +406,7 @@ class DetailState extends State<Detail> {
                 SnackBar(content: Text("Product added successfully!")),
               );
               context.read<HomeBloc>().add(ImageFetch());
-              Navigator.pushNamed(context, '/');
+              Navigator.pushNamed(context, '/homescreen');
             } else if (state is AddFailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),
@@ -442,22 +442,48 @@ class DetailState extends State<Detail> {
                       ),
                     ),
                   ),
-                  _buildTextField('Name', _nameController),
-                  _buildTextField('Price', _priceController, isPrice: true),
-                  _buildTextField('Description', _descriptionController, isDescription: true),
+                  buildTextField('Name', _nameController,''),
+                  buildTextField('Price', _priceController, '',isPrice: true),
+                  buildTextField('Description', _descriptionController,'' ,isDescription: true),
                   SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: _isSubmitting ? null : () => _addHandler(context),
-                    child: _isSubmitting
-                        ? CircularProgressIndicator()
-                        : Text('Add', style: TextStyle(fontSize: 18)),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromRGBO(63, 81, 243, 1),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                  Column(
+                    children: [
+                      SizedBox(height: 30,),
+                      ElevatedButton(
+                      onPressed: _isSubmitting ? null : () => _addHandler(context),
+                      child: _isSubmitting
+                          ? CircularProgressIndicator()
+                          : Text('Add', style: TextStyle(fontSize: 18)),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromRGBO(63, 81, 243, 1),
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                         padding:EdgeInsets.only(left: 130,right:130, bottom:15,top: 15),
                       ),
                     ),
+
+                      SizedBox(height: 15,),
+                     ElevatedButton(
+                      
+                      onPressed: (){
+                        Navigator.pop(context);
+                      },
+                     child:Text('Cancel', style: TextStyle(fontSize: 18), ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.red,
+                         side: BorderSide(color: Colors.red),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding:EdgeInsets.only(left: 120,right:120, bottom:15,top: 15),
+                      ),
+                    ),
+                    SizedBox(height: 20,),
+                    ],
+                    
                   ),
                 ],
               ),
@@ -468,7 +494,7 @@ class DetailState extends State<Detail> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller,
+  Widget buildTextField(String label, TextEditingController controller,String hint,
       {bool isPrice = false, bool isDescription = false}) {
     return Container(
       alignment: Alignment.centerLeft,
@@ -484,6 +510,7 @@ class DetailState extends State<Detail> {
             decoration: InputDecoration(
               suffixIcon: isPrice ? Icon(Icons.attach_money) : null,
               border: InputBorder.none,
+              hintText:hint,
               fillColor: Color.fromARGB(12, 27, 23, 23),
               filled: true,
             ),

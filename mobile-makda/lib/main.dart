@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:myapp/core/connectivity/connection.dart';
-import 'package:myapp/features/product/Data/Data_source/Local_data_source/local_data_src.dart';
-import 'package:myapp/features/product/Data/Data_source/remote_data_source/remote_data_src.dart';
-import 'package:myapp/features/product/Data/repository/repo.dart';
-import 'package:myapp/features/product/Domain/repository/product_repository.dart';
+import 'package:myapp/features/product/Authorization/PresentationLayer/blocks/signin_blocks/signin_blocks.dart';
+import 'package:myapp/features/product/Authorization/PresentationLayer/blocks/signup_blocks/user_bloc.dart';
 import 'package:myapp/features/product/presentation/blocks/Add_blocks/add_block.dart';
 import 'package:myapp/features/product/presentation/blocks/Delete_blocks/delete_block.dart';
 import 'package:myapp/features/product/presentation/blocks/Home_blocks/home_block.dart';
 import 'package:myapp/features/product/presentation/blocks/Home_blocks/home_event.dart';
 import 'package:myapp/features/product/presentation/blocks/update_blocks/update_bloc.dart';
 import 'package:myapp/service_locator.dart';
+import 'package:myapp/src/signin.dart';
+import 'package:myapp/src/signup.dart';
+import 'package:myapp/src/splashscreen.dart';
 import 'package:myapp/src/updatingform.dart';
 import 'src/app.dart';
 import 'src/detail.dart';
@@ -44,16 +44,24 @@ class MYApp extends StatelessWidget {
           ),
         BlocProvider(
           create:(context)=> getIt<DeleteBlock>(),
+          ),
+        BlocProvider(
+          create: (context)=>getIt<UserBloc>(),
+          ),
+        BlocProvider(
+          create: (context)=>getIt<SigninBloc>(),                                      
           )
       ],
-      // create: (context) => getIt<HomeBloc>()..add(ImageFetch()),
-      // // create: (_)=> getIt.get<HomeBloc>(),
+
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
         routes: {
           
-          '/': (context) => HomeScreen(),
+          '/': (context) => SplashScreen(),
+          '/signin':(context)=> Signinpage(),
+          '/signup':(context)=> Signuppage(),
+          '/homescreen':(context)=>HomeScreen(),
           '/update': (context) => up(),
           '/updatingform':(context)=>Updatingform(),
           '/detail': (context) => Detail(),
@@ -64,17 +72,5 @@ class MYApp extends StatelessWidget {
   }
 }
 
-// return BlocProvider<HomeBloc>(
-//   create: (context) => getIt<HomeBloc>(),
-//   child: MaterialApp(
-//     debugShowCheckedModeBanner: false,
-//     initialRoute: '/',
-//     routes: {
-//       '/': (context) => HomeScreen(),
-//       '/update': (context) => UpdateScreen(),
-//       '/detail': (context) => DetailScreen(),
-//       '/search': (context) => SearchScreen(),
-//     },
-//   ),
-// );
+
 

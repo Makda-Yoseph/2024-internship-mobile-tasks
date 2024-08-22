@@ -8,21 +8,7 @@ import 'package:myapp/features/product/Domain/entities/product.dart';
 import 'package:myapp/features/product/Domain/repository/product_repository.dart';
 
 
-// abstract class ProductRepository {
-//   Future<Either<Failure, List<ProductModel>>> getAllProducts();
-//   Future<Either<Failure, ProductModel>> addItem(ProductModel item);
-//   Future<Either<Failure, void>> deleteProduct(String id);
-//   Future<Either<Failure, ProductModel>> updateItem(ProductModel item);
-//   Future<Either<Failure, ProductModel>> getProduct(String id);
-// }
-// abstract class productRepo{
-//   Future<Either<Failure,List<product>>>getallItem();
-//    Future<Either<Failure,product>>addItem(product item);
-//    Future<Either<Failure,void>>deleteProduct(String id);
-//    Future<Either<Failure,product>>updateProduct(product item);
-//    Future<Either<Failure,product>>getitem(String id);
 
-// }
 
 class ProductRepositoryImpl implements productRepo {
   final RemoteSource remoteSource;

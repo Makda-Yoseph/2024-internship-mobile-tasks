@@ -99,7 +99,7 @@ class DetailState extends State<Updatingform> {
                 SnackBar(content: Text("Product updated successfully!")),
               );
               context.read<HomeBloc>().add(ImageFetch());
-              Navigator.pushNamed(context, '/');
+              Navigator.pushNamed(context, '/homescreen');
             } else if (state is Updatefailure) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text(state.error)),

@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:myapp/features/product/Domain/entities/product.dart';
 import 'package:myapp/features/product/presentation/blocks/Home_blocks/home_block.dart';
 import 'package:myapp/features/product/presentation/blocks/Home_blocks/home_event.dart';
@@ -14,6 +16,7 @@ import 'package:myapp/src/products.dart';
 import 'package:myapp/src/update.dart';
 import 'package:myapp/src/search.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // import 'package:google_fonts/google_fonts.dart';
 // class App extends StatelessWidget {
@@ -32,9 +35,30 @@ import 'package:provider/provider.dart';
 //     );
 //   }
 // }
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
 
-class HomeScreen extends StatelessWidget {
+
+
+class _HomePageState extends State<HomeScreen> {
+   var name;
+
+  void initState() {
+    super.initState();
+    _loadName();
+  }
+  Future<void> _loadName() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('auth_name');
+    });
+    // print(name.toString());
+  }
+  
   Widget build(BuildContext context) {
+    String currentDate = DateFormat('MMMM dd, yyyy').format(DateTime.now());
 
     // List<Item> shoes = ItemProvider.retrive();
     // List<Widget> dispCards = shoes.map((shoe){
@@ -54,16 +78,30 @@ class HomeScreen extends StatelessWidget {
             },
             child: Icon(Icons.add),
             shape: CircleBorder(),
-            backgroundColor: Colors.blue,
+            backgroundColor:Color.fromRGBO(63, 81, 243, 1),
             foregroundColor: Colors.white,
           ),
           appBar: AppBar(
             actions: [
-              Container(
-                child: IconButton(
-                  icon: Icon(Icons.circle_notifications, color: Colors.grey),
-                  onPressed: () {},
+              Row(
+                children: [
+                   Container(
+                  child: IconButton(
+                    icon: Icon(Icons.circle_notifications, color: Colors.grey),
+                    onPressed: () {},
+                  ),
                 ),
+                Container(
+                  child: IconButton(
+                    icon: Icon(Icons.logout, color: Colors.grey.shade600),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/signin');
+                    },
+                  ),
+                ),
+                ],
+
+                
               )
             ],
             leading: Padding(
@@ -81,16 +119,16 @@ class HomeScreen extends StatelessWidget {
                     )),
               ),
             ),
-            title: const SizedBox(
+            title:  SizedBox(
               child: Column(
                 children: <Widget>[
-                  Text('july 14 ,2023',
+                  Text(currentDate,
                       style: TextStyle(
                         fontSize: 12.0,
                         color: Colors.grey,
                       )),
                   Text(
-                    'Hello, Abeba',
+                    'Hello ${name.toString()}'
                   ),
                 ],
               ),
@@ -157,6 +195,7 @@ class Mycard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      elevation: 150,
       child: Padding(
         padding: EdgeInsets.only(left: 10, right: 10),
         child: GestureDetector(
@@ -175,7 +214,7 @@ class Mycard extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                 ),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
@@ -192,7 +231,7 @@ class Mycard extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(right: 10),
                     child: Text(
-                      '\$${shoes.price.toString()}', // Updated to convert price to String
+                      '\$${shoes.price.toString()}',
                       style: TextStyle(
                         color: Color.fromRGBO(62, 62, 62, 1),
                         fontSize: 22,
@@ -201,14 +240,14 @@ class Mycard extends StatelessWidget {
                   ),
                 ],
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 3),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
-                      'Category Placeholder', // Replace with actual category if needed
+                      ' ', 
                       style: TextStyle(
                         fontSize: 15,
                         color: Color.fromRGBO(170, 170, 170, 1),
@@ -233,6 +272,7 @@ class Mycard extends StatelessWidget {
                   ),
                 ],
               ),
+              SizedBox(height: 10,)
             ],
           ),
         ),
