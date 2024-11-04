@@ -142,7 +142,7 @@ class _SignuppageState extends State<Signuppage> {
                       email: _emailController.text,
                       password: _passwordController.text,
                     );
-                    if (_passwordController!=_confirmPassword){
+                    if  (_passwordController.text != _confirmPassword.text) {
                        ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(content: Text('Password not correctly confirmed'),backgroundColor: Colors.red.shade300,),
               );
